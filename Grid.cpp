@@ -47,26 +47,18 @@ int Grid::getAliveNeighbours(const int x, const int y, const CircularMatrix<char
     int aliveNeighbours = 0;
 
     //Check three neighbours on x-1
-    if(x>0) {
-        if(tempGrid[x-1][y]=='*') aliveNeighbours += 1;
-        if(y+1<height)
-            if(tempGrid[x-1][y+1]=='*') aliveNeighbours += 1;
-        if(y>0)
-            if(tempGrid[x-1][y-1]=='*') aliveNeighbours += 1;
-    }
+    if(tempGrid[x-1][y]=='*') aliveNeighbours += 1;
+    if(tempGrid[x-1][y+1]=='*') aliveNeighbours += 1;
+    if(tempGrid[x-1][y-1]=='*') aliveNeighbours += 1;
 
     //Check two x neighbours
-    if(y>0 && tempGrid[x][y-1]=='*') aliveNeighbours += 1;
-    if(y+1<height && tempGrid[x][y+1]=='*') aliveNeighbours += 1;
+    if(tempGrid[x][y-1]=='*') aliveNeighbours += 1;
+    if(tempGrid[x][y+1]=='*') aliveNeighbours += 1;
 
     //Check three x+1 neighbours
-    if(x+1<width) {
-        if(tempGrid[x+1][y]=='*') aliveNeighbours += 1;
-        if(y+1<height)
-            if(tempGrid[x+1][y+1]=='*') aliveNeighbours += 1;
-        if(y>0)
-            if(tempGrid[x+1][y-1]=='*') aliveNeighbours += 1;
-    }
+    if(tempGrid[x+1][y]=='*') aliveNeighbours += 1;
+    if(tempGrid[x+1][y+1]=='*') aliveNeighbours += 1;
+    if(tempGrid[x+1][y-1]=='*') aliveNeighbours += 1;
 
     return aliveNeighbours;
 }
