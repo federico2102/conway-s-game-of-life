@@ -10,11 +10,12 @@ private:
     CircularMatrix<char> grid;
 
     void assignLiveCell(int x, int y);
-    int getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid) const;
-    void setColor(int textColor) const;
+    static int getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid) ;
+    static void setColor(int textColor) ;
     void randomlyAssignLiveCell();
     void printGrid() const;
     void nextState();
+    bool allCellsAreDead() const;
 
 public:
     Grid(int w, int h);

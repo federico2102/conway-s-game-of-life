@@ -2,6 +2,7 @@
 #include <iostream>
 #include <random>
 #include <windows.h>
+#include <ctime>
 
 // Constructor
 Grid::Grid(int w, int h) : width(w), height(h), grid(w, h, '-') {
@@ -10,7 +11,7 @@ Grid::Grid(int w, int h) : width(w), height(h), grid(w, h, '-') {
     }
 }
 
-void Grid::setColor(int textColor) const {
+void Grid::setColor(const int textColor) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     SetConsoleTextAttribute(hConsole, textColor);
 }
@@ -43,7 +44,7 @@ void Grid::printGrid() const {
     }
 }
 
-int Grid::getAliveNeighbours(const int x, const int y, const CircularMatrix<char>& tempGrid) const {
+int Grid::getAliveNeighbours(const int x, const int y, const CircularMatrix<char>& tempGrid) {
     int aliveNeighbours = 0;
 
     //Check three neighbours on x-1
@@ -75,15 +76,27 @@ void Grid::nextState() {
     }
 }
 
+bool Grid::allCellsAreDead() const {
+    return grid.allValuesAreEqualTo('-');
+}
+
+
 void Grid::startGame() {
     randomlyAssignLiveCell();
     printGrid();
 
-    std::string enter;
+    int seconds;
+    std::cout << "Enter the amount of seconds to update game state" << std::endl;
+    std::cin >> seconds;
+
     while(true) {
+        /*if(enter == "exit")break;
         setColor(7);
-        std::cout << "Type any key and press enter to continue..." << std::endl;
-        std::cin >> enter;
+        std::cout << "Type any key and press enter to continue or type exit to end..." << std::endl;
+        std::cin >> enter;*/
+        const time_t before = time(nullptr);
+        while (difftime(time(nullptr), before) < seconds){}
+        if(allCellsAreDead())break;
         nextState();
         printGrid();
     }
