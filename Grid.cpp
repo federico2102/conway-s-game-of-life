@@ -5,6 +5,9 @@
 
 // Constructor
 Grid::Grid(int w, int h) : width(w), height(h) {
+    if (w <= 0 || h <= 0) {
+        throw std::invalid_argument("Grid dimensions must be greater than zero.");
+    }
     grid = std::vector(width, std::vector(height, '-'));
 }
 

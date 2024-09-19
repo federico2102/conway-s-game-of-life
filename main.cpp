@@ -141,9 +141,12 @@ int main() {
     std::cin >> width;
     std::cout << "Enter grid's height: " << std::endl;
     std::cin >> height;
-
-    Grid grid(width, height);
-    grid.startGame();
+    try {
+        Grid grid(width, height);
+        grid.startGame();
+    } catch (const std::invalid_argument& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+    }
 
     return 0;
 }
