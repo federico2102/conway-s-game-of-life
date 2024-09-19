@@ -132,20 +132,21 @@ int main() {
 }
 */
 
-#include <iostream>
 #include "Grid.h"
+#include <iostream>
 
 int main() {
     int width, height;
-    std::cout << "Enter grid's width: " << std::endl;
+    std::cout << "Enter grid width: " << std::endl;
     std::cin >> width;
-    std::cout << "Enter grid's height: " << std::endl;
+    std::cout << "Enter grid height: " << std::endl;
     std::cin >> height;
+
     try {
         Grid grid(width, height);
         grid.startGame();
     } catch (const std::invalid_argument& e) {
-        std::cerr << "Error: " << e.what() << std::endl;
+        std::cerr << "Error: " << e.what() << '\n';
     }
 
     return 0;

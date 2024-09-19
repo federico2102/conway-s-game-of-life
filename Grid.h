@@ -4,19 +4,16 @@
 #include "CircularMatrix.h"
 
 class Grid {
-private:
-    int width;
-    int height;
+    int width, height;
     CircularMatrix<char> grid;
 
     void assignLiveCell(int x, int y);
-    static int getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid) ;
-    static void setColor(int textColor) ;
+    static int getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid);
     void randomlyAssignLiveCell();
     void printGrid() const;
     void nextState();
     bool allCellsAreDead() const;
-    bool civilizationIsStuck(const CircularMatrix<char> &oldGrid) const;
+    bool civilizationIsStuck(const CircularMatrix<char>& oldGrid) const;
 
 public:
     Grid(int w, int h);

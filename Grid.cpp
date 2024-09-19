@@ -11,11 +11,6 @@ Grid::Grid(int w, int h) : width(w), height(h), grid(w, h, '-') {
     }
 }
 
-void Grid::setColor(const int textColor) {
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    SetConsoleTextAttribute(hConsole, textColor);
-}
-
 void Grid::assignLiveCell(int x, int y) {
     grid[x][y] = '*';
 }
@@ -23,50 +18,38 @@ void Grid::assignLiveCell(int x, int y) {
 void Grid::randomlyAssignLiveCell() {
     std::random_device rd;
     std::mt19937 mt(rd());
-    std::uniform_int_distribution<int> x(0, width - 1);
-    std::uniform_int_distribution<int> y(0, height - 1);
+    std::uniform_int_distribution<int> xDist(0, width - 1);
+    std::uniform_int_distribution<int> yDist(0, height - 1);
     std::uniform_int_distribution<int> liveCells(2, width * height);
 
     int lc = liveCells(mt);
-
     for (int i = 0; i < lc; i++) {
-        assignLiveCell(x(mt), y(mt));
+        assignLiveCell(xDist(mt), yDist(mt));
     }
 }
 
 void Grid::printGrid() const {
+    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
-            setColor(grid[i][j] == '*' ? 2 : 12);
+            SetConsoleTextAttribute(hConsole, (grid[i][j] == '*') ? 2 : 12);
             std::cout << grid[i][j] << "  ";
         }
-        std::cout << std::endl;
+        std::cout << '\n';
     }
+    std::cout << '\n';
 }
 
-int Grid::getAliveNeighbours(const int x, const int y, const CircularMatrix<char>& tempGrid) {
+int Grid::getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid) {
     int aliveNeighbours = 0;
-
-    //Check three neighbours on x-1
-    if(tempGrid[x-1][y]=='*') aliveNeighbours += 1;
-    if(tempGrid[x-1][y+1]=='*') aliveNeighbours += 1;
-    if(tempGrid[x-1][y-1]=='*') aliveNeighbours += 1;
-
-    //Check two x neighbours
-    if(tempGrid[x][y-1]=='*') aliveNeighbours += 1;
-    if(tempGrid[x][y+1]=='*') aliveNeighbours += 1;
-
-    //Check three x+1 neighbours
-    if(tempGrid[x+1][y]=='*') aliveNeighbours += 1;
-    if(tempGrid[x+1][y+1]=='*') aliveNeighbours += 1;
-    if(tempGrid[x+1][y-1]=='*') aliveNeighbours += 1;
-
+    aliveNeighbours += (tempGrid[x-1][y-1] == '*') + (tempGrid[x-1][y] == '*') + (tempGrid[x-1][y+1] == '*');
+    aliveNeighbours += (tempGrid[x][y-1] == '*') + (tempGrid[x][y+1] == '*');
+    aliveNeighbours += (tempGrid[x+1][y-1] == '*') + (tempGrid[x+1][y] == '*') + (tempGrid[x+1][y+1] == '*');
     return aliveNeighbours;
 }
 
 void Grid::nextState() {
     CircularMatrix<char> tempGrid(grid);
-
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             int aliveNeighbours = getAliveNeighbours(i, j, tempGrid);
@@ -84,28 +67,28 @@ bool Grid::civilizationIsStuck(const CircularMatrix<char>& oldGrid) const {
     return oldGrid == grid;
 }
 
-
-
 void Grid::startGame() {
     randomlyAssignLiveCell();
 
     int seconds;
-    std::cout << "Enter the amount of seconds to update game state" << std::endl;
+    std::cout << "Enter seconds between updates: ";
     std::cin >> seconds;
 
-    while(true) {
+    while (true) {
         const time_t before = time(nullptr);
-        while (difftime(time(nullptr), before) < seconds){}
-        if(allCellsAreDead()) {
-            std::cout << "Everybody died =( " << std::endl;
+        while (difftime(time(nullptr), before) < seconds) {}
+
+        if (allCellsAreDead()) {
+            std::cout << "All cells are dead. =( \n";
             break;
         }
+
         CircularMatrix<char> oldGrid(grid);
         printGrid();
-        std::cout << std::endl;
         nextState();
-        if(civilizationIsStuck(oldGrid)) {
-            std::cout << "This civilization is never going to change. Boring =(" << std::endl;
+
+        if (civilizationIsStuck(oldGrid)) {
+            std::cout << "The civilization is stuck in a stable state. Boring... =( \n";
             break;
         }
     }
