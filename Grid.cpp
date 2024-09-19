@@ -4,11 +4,10 @@
 #include <windows.h>
 
 // Constructor
-Grid::Grid(int w, int h) : width(w), height(h) {
+Grid::Grid(int w, int h) : width(w), height(h), grid(w, h, '-') {
     if (w <= 0 || h <= 0) {
         throw std::invalid_argument("Grid dimensions must be greater than zero.");
     }
-    grid = std::vector(width, std::vector(height, '-'));
 }
 
 void Grid::setColor(int textColor) const {
@@ -44,7 +43,7 @@ void Grid::printGrid() const {
     }
 }
 
-int Grid::getAliveNeighbours(int x, int y, const std::vector<std::vector<char>>& tempGrid) const {
+int Grid::getAliveNeighbours(const int x, const int y, const CircularMatrix<char>& tempGrid) const {
     int aliveNeighbours = 0;
 
     //Check three neighbours on x-1
@@ -73,7 +72,7 @@ int Grid::getAliveNeighbours(int x, int y, const std::vector<std::vector<char>>&
 }
 
 void Grid::nextState() {
-    std::vector<std::vector<char>> tempGrid(grid);
+    CircularMatrix<char> tempGrid(grid);
 
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
@@ -89,7 +88,7 @@ void Grid::startGame() {
     printGrid();
 
     std::string enter;
-    while (true) {
+    while(true) {
         setColor(7);
         std::cout << "Type any key and press enter to continue..." << std::endl;
         std::cin >> enter;

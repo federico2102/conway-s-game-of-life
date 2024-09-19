@@ -1,16 +1,16 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include <vector>
+#include "CircularMatrix.h"
 
 class Grid {
 private:
     int width;
     int height;
-    std::vector<std::vector<char>> grid;
+    CircularMatrix<char> grid;
 
     void assignLiveCell(int x, int y);
-    int getAliveNeighbours(int x, int y, const std::vector<std::vector<char>>& tempGrid) const;
+    int getAliveNeighbours(int x, int y, const CircularMatrix<char>& tempGrid) const;
     void setColor(int textColor) const;
     void randomlyAssignLiveCell();
     void printGrid() const;
