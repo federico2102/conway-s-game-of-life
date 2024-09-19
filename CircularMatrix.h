@@ -31,10 +31,8 @@ public:
     CircularMatrix(int w, int h, T value);
     MatrixRow operator[](int i);
     MatrixRow operator[](int i) const;
-
-    bool allValuesAreEqualTo(T value);
-
     bool allValuesAreEqualTo(T value) const;
+    bool operator==(const CircularMatrix &other) const;
 };
 
 template<typename T>
@@ -87,6 +85,20 @@ typename CircularMatrix<T>::MatrixRow CircularMatrix<T>::operator[](int i) const
     i = i % width;
     if (i < 0) i += width;  // Handle negative indices
     return MatrixRow(matrix[i], height);
+}
+
+template<typename T>
+bool CircularMatrix<T>::operator==(const CircularMatrix &other) const {
+    if (width != other.width || height != other.height) {
+        return false;
+    } else {
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < height; j++) {
+                if (matrix[i][j] != other.matrix[i][j]) return false;
+            }
+        }
+    }
+    return true;
 }
 
 template<typename T>

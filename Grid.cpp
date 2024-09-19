@@ -25,7 +25,7 @@ void Grid::randomlyAssignLiveCell() {
     std::mt19937 mt(rd());
     std::uniform_int_distribution<int> x(0, width - 1);
     std::uniform_int_distribution<int> y(0, height - 1);
-    std::uniform_int_distribution<int> liveCells(0, width * height);
+    std::uniform_int_distribution<int> liveCells(2, width * height);
 
     int lc = liveCells(mt);
 
@@ -80,24 +80,33 @@ bool Grid::allCellsAreDead() const {
     return grid.allValuesAreEqualTo('-');
 }
 
+bool Grid::civilizationIsStuck(const CircularMatrix<char>& oldGrid) const {
+    return oldGrid == grid;
+}
+
+
 
 void Grid::startGame() {
     randomlyAssignLiveCell();
-    printGrid();
 
     int seconds;
     std::cout << "Enter the amount of seconds to update game state" << std::endl;
     std::cin >> seconds;
 
     while(true) {
-        /*if(enter == "exit")break;
-        setColor(7);
-        std::cout << "Type any key and press enter to continue or type exit to end..." << std::endl;
-        std::cin >> enter;*/
         const time_t before = time(nullptr);
         while (difftime(time(nullptr), before) < seconds){}
-        if(allCellsAreDead())break;
-        nextState();
+        if(allCellsAreDead()) {
+            std::cout << "Everybody died =( " << std::endl;
+            break;
+        }
+        CircularMatrix<char> oldGrid(grid);
         printGrid();
+        std::cout << std::endl;
+        nextState();
+        if(civilizationIsStuck(oldGrid)) {
+            std::cout << "This civilization is never going to change. Boring =(" << std::endl;
+            break;
+        }
     }
 }

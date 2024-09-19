@@ -16,6 +16,7 @@ private:
     void printGrid() const;
     void nextState();
     bool allCellsAreDead() const;
+    bool civilizationIsStuck(const CircularMatrix<char> &oldGrid) const;
 
 public:
     Grid(int w, int h);
