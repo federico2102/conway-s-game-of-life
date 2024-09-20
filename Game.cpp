@@ -1,4 +1,5 @@
 #include "Game.h"
+#include "Renderer.h"
 #include <iostream>
 #include <random>
 #include <windows.h>
@@ -57,21 +58,6 @@ void Game::randomlyAssignAliveCells() {
     }
 }
 
-void Game::printGrid() const {
-#ifdef _WIN32
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-#endif
-
-    for (int i = 0; i < grid.getWidth(); i++) {
-        for (int j = 0; j < grid.getHeight(); j++) {
-            SetConsoleTextAttribute(hConsole, (grid.getCell(i,j) == '*') ? 2 : 12);
-            std::cout << grid.getCell(i,j) << "  ";
-        }
-        std::cout << '\n';
-    }
-    std::cout << '\n';
-}
-
 bool Game::isStuck(const Grid<char>& oldGrid) const {
     return oldGrid == grid;
 }
@@ -97,7 +83,7 @@ void Game::start() {
         }
 
         Grid<char> oldGrid(grid);
-        printGrid();
+        Renderer::printGrid(grid);
         updateState();
 
         if (isStuck(oldGrid)) {

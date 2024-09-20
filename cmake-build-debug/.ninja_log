@@ -1,12 +1,15 @@
 # ninja log v6
-11	1701	7485399991207211	CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj	a99ecdcdb2afcdec
-5	346	7485415973812003	build.ninja	a7f185c247e7681e
-29	3840	7485399991381570	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
-3841	4034	7485400029497179	conway_s_game_of_life.exe	66a67e122f9e3250
+6	724	7485544727018567	build.ninja	a7f185c247e7681e
+15	1625	7485542950796956	CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj	a99ecdcdb2afcdec
+3347	3536	7485518807065273	conway_s_game_of_life.exe	456cd0ee889f30d
+32	4042	7485542950953245	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
 18	1704	7485399991278225	CMakeFiles/conway_s_game_of_life.dir/Grid.cpp.obj	38b611c356d42615
 25	1105	7484628324367333	CMakeFiles/conway_s_game_of_life.dir/CircularMatrix.cpp.obj	602298705874e9eb
-6	724	7485415973812003	build.ninja	a7f185c247e7681e
-24	3680	7485418205718858	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
-11	1378	7485418494208260	CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj	a99ecdcdb2afcdec
-18	3487	7485418494279772	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
-3487	3712	7485418528972933	conway_s_game_of_life.exe	456cd0ee889f30d
+44	3397	7485542951109492	CMakeFiles/conway_s_game_of_life.dir/Renderer.cpp.obj	4d9d603bbf952513
+6	472	7485544727018567	build.ninja	a7f185c247e7681e
+16	1421	7485544727701096	CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj	a99ecdcdb2afcdec
+21	3921	7485544727761097	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
+3921	4111	7485544766756069	conway_s_game_of_life.exe	456cd0ee889f30d
+14	1781	7485545266379957	CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj	a99ecdcdb2afcdec
+20	5306	7485545266450817	CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj	e3456ba08fe44233
+5306	5525	7485545319303895	conway_s_game_of_life.exe	456cd0ee889f30d
