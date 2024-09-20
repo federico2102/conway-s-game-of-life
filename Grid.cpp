@@ -1,3 +1,4 @@
+/*
 #include "Grid.h"
 #include <iostream>
 #include <random>
@@ -93,3 +94,37 @@ void Grid::startGame() {
         }
     }
 }
+*/
+
+/*#include "Grid.h"
+
+template<typename T>
+Grid<T>::Grid(const int w, const int h, const T defaultValue) : width(w), height(h), matrix(w, h, defaultValue) {}
+
+template<typename T>
+T Grid<T>::getCell(const int x,const int y) const {
+    return matrix[x][y];
+}
+
+template<typename T>
+void Grid<T>::setCell(const int x, const int y, const T value) {
+    matrix[x][y] = value;
+}
+
+template<typename T>
+int Grid<T>::getWidth() const { return width; }
+
+template<typename T>
+int Grid<T>::getHeight() const { return height; }
+
+template<typename T>
+bool Grid<T>::operator==(const Grid &other) const {
+    return width == other.width && height == other.height && matrix == other.matrix;
+}
+
+template<typename T>
+bool Grid<T>::allValuesAreEqualTo(const T value) const {
+    return matrix.allValuesAreEqualTo(value);
+}*/
+
+

@@ -55,8 +55,8 @@ build CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj: CXX_COMPILER__conway_s_
   OBJECT_DIR = CMakeFiles\conway_s_game_of_life.dir
   OBJECT_FILE_DIR = CMakeFiles\conway_s_game_of_life.dir
 
-build CMakeFiles/conway_s_game_of_life.dir/Grid.cpp.obj: CXX_COMPILER__conway_s_game_of_life_unscanned_Debug C$:/Users/Federico/CLionProjects/conway's-game-of-life/Grid.cpp || cmake_object_order_depends_target_conway_s_game_of_life
-  DEP_FILE = CMakeFiles\conway_s_game_of_life.dir\Grid.cpp.obj.d
+build CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj: CXX_COMPILER__conway_s_game_of_life_unscanned_Debug C$:/Users/Federico/CLionProjects/conway's-game-of-life/Game.cpp || cmake_object_order_depends_target_conway_s_game_of_life
+  DEP_FILE = CMakeFiles\conway_s_game_of_life.dir\Game.cpp.obj.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles\conway_s_game_of_life.dir
   OBJECT_FILE_DIR = CMakeFiles\conway_s_game_of_life.dir
@@ -69,7 +69,7 @@ build CMakeFiles/conway_s_game_of_life.dir/Grid.cpp.obj: CXX_COMPILER__conway_s_
 #############################################
 # Link the executable conway_s_game_of_life.exe
 
-build conway_s_game_of_life.exe: CXX_EXECUTABLE_LINKER__conway_s_game_of_life_Debug CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj CMakeFiles/conway_s_game_of_life.dir/Grid.cpp.obj
+build conway_s_game_of_life.exe: CXX_EXECUTABLE_LINKER__conway_s_game_of_life_Debug CMakeFiles/conway_s_game_of_life.dir/main.cpp.obj CMakeFiles/conway_s_game_of_life.dir/Game.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\conway_s_game_of_life.dir

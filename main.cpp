@@ -132,7 +132,7 @@ int main() {
 }
 */
 
-#include "Grid.h"
+#include "Game.h"
 #include <iostream>
 
 int main() {
@@ -143,8 +143,8 @@ int main() {
     std::cin >> height;
 
     try {
-        Grid grid(width, height);
-        grid.startGame();
+        Game game(width, height);
+        game.start();
     } catch (const std::invalid_argument& e) {
         std::cerr << "Error: " << e.what() << '\n';
     }

@@ -11,7 +11,6 @@ class CircularMatrix {
     std::vector<std::vector<T>> matrix;
 
 public:
-    CircularMatrix(const CircularMatrix &other) = default;
     CircularMatrix(int w, int h, T value);
 
     class CircularRow {
