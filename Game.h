@@ -14,7 +14,6 @@ public:
     void updateState();
     bool isCellAlive(int x, int y) const;
     void setAlive(int x, int y);
-    void printGrid() const;
     bool isStuck(const Grid<char>& oldGrid) const;
     bool allCellsAreDead() const;
     void start();
