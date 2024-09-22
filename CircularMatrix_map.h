@@ -3,7 +3,6 @@
 
 #include <map>
 #include <stdexcept>
-#include <algorithm>
 
 template<typename T>
 class CircularMatrix {

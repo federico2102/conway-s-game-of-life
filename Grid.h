@@ -1,7 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include "CircularMatrix.h"
+#include "CircularMatrix_map.h"
 #include <set>
 #include <utility>
 
