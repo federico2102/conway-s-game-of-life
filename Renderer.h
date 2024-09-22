@@ -2,6 +2,9 @@
 #define RENDERER_H
 
 #include "Grid.h"
+#include "Renderer.h"
+#include <iostream>
+#include <windows.h>
 
 class Renderer {
 public:
@@ -11,10 +14,6 @@ public:
     template<typename T>
     static void printGrid(const ::Grid<T> &grid);
 };
-
-#include "Renderer.h"
-#include <iostream>
-#include <windows.h>
 
 inline void Renderer::setCursorPosition(const short x, const short y) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -45,7 +44,6 @@ void Renderer::printGrid(const Grid<T> & grid) {
     }
     std::cout << '\n';
 }
-
 
 #endif // RENDERER_H
 

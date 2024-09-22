@@ -6,7 +6,9 @@
 class Game {
 private:
     Grid<char> grid;
-    static int countAliveNeighbors(int x, int y, const Grid<char>& tempGrid) ;
+    char aliveValue = '*', deadValue = '-';
+    int countAliveNeighbors(int x, int y) const;
+    void updateActiveCells();
     void randomlyAssignAliveCells();
 
 public:

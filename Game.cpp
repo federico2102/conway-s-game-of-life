@@ -5,9 +5,10 @@
 #include <windows.h>
 #include <ctime>
 
-Game::Game(const int width, const int height) : grid(width, height) {}
+Game::Game(const int width, const int height): grid(width, height, deadValue) {
+}
 
-int Game::countAliveNeighbors(const int x, const int y, const Grid<char>& tempGrid) {
+int Game::countAliveNeighbors(const int x, const int y) const {
     /*int aliveNeighbours = 0;
     aliveNeighbours += (tempGrid.getCell(x-1,y-1) == '*') + (tempGrid.getCell(x-1,y) == '*') + (tempGrid.getCell(x-1,y+1) == '*');
     aliveNeighbours += (tempGrid.getCell(x,y-1) == '*') + (tempGrid.getCell(x,y+1) == '*');
@@ -18,7 +19,7 @@ int Game::countAliveNeighbors(const int x, const int y, const Grid<char>& tempGr
     for (int i = -1; i <= 1; ++i) {
         for (int j = -1; j <= 1; ++j) {
             if (i == 0 && j == 0) continue; // Skip the current cell
-            if (tempGrid.getCell(x + i, y + j) == '*') {
+            if (grid.getCell(x + i, y + j) == '*') {
                 ++aliveNeighbours;
             }
         }
@@ -26,14 +27,53 @@ int Game::countAliveNeighbors(const int x, const int y, const Grid<char>& tempGr
     return aliveNeighbours;
 }
 
+// Update active cells (alive cells and their neighbors)
+void Game::updateActiveCells() {
+    std::set<std::pair<int, int>> newActiveCells;
+    for (const auto& [x, y] : grid.getActiveCells()) {
+        for (int i = -1; i <= 1; ++i) {
+            for (int j = -1; j <= 1; ++j) {
+                newActiveCells.insert({x + i, y + j});
+            }
+        }
+    }
+    grid.setActiveCells(newActiveCells);  // Update with new set of active cells
+}
+
 void Game::updateState() {
-    const Grid<char> tempGrid(grid);
+    /*const Grid<char> tempGrid(grid);
     for (int i = 0; i < grid.getWidth(); i++) {
         for (int j = 0; j < grid.getHeight(); j++) {
             int aliveNeighbours = countAliveNeighbors(i, j, tempGrid);
             if (aliveNeighbours < 2 || aliveNeighbours > 3) grid.setCell(i,j,'-');
             else if (aliveNeighbours == 3) grid.setCell(i,j,'*');
         }
+    }*/
+
+    std::vector<std::pair<int, int>> toLive;
+    std::vector<std::pair<int, int>> toDie;
+
+    updateActiveCells();  // Update the list of active cells
+
+    for (const auto& [x, y] : grid.getActiveCells()) {
+        int aliveNeighbors = countAliveNeighbors(x, y);
+        if (grid.getCell(x, y) == aliveValue) {
+            if (aliveNeighbors < 2 || aliveNeighbors > 3) {
+                toDie.emplace_back(x, y);  // Cell dies
+            }
+        } else {
+            if (aliveNeighbors == 3) {
+                toLive.emplace_back(x, y);  // Cell becomes alive
+            }
+        }
+    }
+
+    // Apply updates to the grid
+    for (const auto& [x, y] : toLive) {
+        grid.setCell(x, y, aliveValue);
+    }
+    for (const auto& [x, y] : toDie) {
+        grid.setCell(x, y, deadValue);
     }
 }
 
