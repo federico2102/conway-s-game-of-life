@@ -1,7 +1,7 @@
 #ifndef GRID_H
 #define GRID_H
 
-#include "CircularMatrix_map.h"
+#include "CircularMatrix.h"
 #include <set>
 #include <utility>
 
@@ -22,6 +22,7 @@ public:
     int getHeight() const;
     std::set<std::pair<int, int>> getActiveCells() const;
     void setActiveCells(std::set<std::pair<int, int>> ac);
+    T getDefaultValue() const;
 
     bool operator==(const Grid &other) const;
     bool allValuesAreEqualTo(T value) const;
@@ -58,6 +59,11 @@ std::set<std::pair<int, int>> Grid<T>::getActiveCells() const { return activeCel
 template<typename T>
 void Grid<T>::setActiveCells(std::set<std::pair<int, int> > ac) {
     activeCells = std::move(ac);
+}
+
+template<typename T>
+T Grid<T>::getDefaultValue() const {
+    return defaultValue;
 }
 
 

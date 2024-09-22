@@ -5,8 +5,8 @@
 
 class Game {
 private:
+    char aliveValue, deadValue;
     Grid<char> grid;
-    char aliveValue = '*', deadValue = '-';
     int countAliveNeighbors(int x, int y) const;
     void updateActiveCells();
     void randomlyAssignAliveCells();

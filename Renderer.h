@@ -37,7 +37,7 @@ void Renderer::printGrid(const Grid<T> & grid) {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     for (int i = 0; i < grid.getWidth(); i++) {
         for (int j = 0; j < grid.getHeight(); j++) {
-            SetConsoleTextAttribute(hConsole, (grid.getCell(i,j) == '*') ? 2 : 12);
+            SetConsoleTextAttribute(hConsole, (grid.getCell(i,j) != grid.getDefaultValue()) ? 2 : 12);
             std::cout << grid.getCell(i,j) << "  ";
         }
         std::cout << '\n';

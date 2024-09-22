@@ -5,7 +5,7 @@
 #include <windows.h>
 #include <ctime>
 
-Game::Game(const int width, const int height): grid(width, height, deadValue) {
+Game::Game(const int width, const int height): aliveValue('*'), deadValue('-'), grid(width, height, deadValue) {
 }
 
 int Game::countAliveNeighbors(const int x, const int y) const {
@@ -19,7 +19,7 @@ int Game::countAliveNeighbors(const int x, const int y) const {
     for (int i = -1; i <= 1; ++i) {
         for (int j = -1; j <= 1; ++j) {
             if (i == 0 && j == 0) continue; // Skip the current cell
-            if (grid.getCell(x + i, y + j) == '*') {
+            if (grid.getCell(x + i, y + j) == aliveValue) {
                 ++aliveNeighbours;
             }
         }
@@ -78,11 +78,11 @@ void Game::updateState() {
 }
 
 bool Game::isCellAlive(const int x, const int y) const {
-    return grid.getCell(x, y) == '*';
+    return grid.getCell(x, y) == aliveValue;
 }
 
 void Game::setAlive(const int x, const int y) {
-    grid.setCell(x, y, '*');
+    grid.setCell(x, y, aliveValue);
 }
 
 void Game::randomlyAssignAliveCells() {
@@ -103,7 +103,7 @@ bool Game::isStuck(const Grid<char>& oldGrid) const {
 }
 
 bool Game::allCellsAreDead() const {
-    return grid.allValuesAreEqualTo('-');
+    return grid.allValuesAreEqualTo(deadValue);
 }
 
 void Game::start() {

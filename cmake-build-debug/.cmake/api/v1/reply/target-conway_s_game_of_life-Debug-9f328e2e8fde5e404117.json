@@ -120,7 +120,7 @@
 		},
 		{
 			"backtrace" : 1,
-			"path" : "CircularMatrix.h",
+			"path" : "CircularMatrix_map.h",
 			"sourceGroupIndex" : 1
 		},
 		{
