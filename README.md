@@ -33,5 +33,5 @@ The grid implementation is generic and modular. To switch between the vector-bas
 - For **vector-based** implementation, include in Grid.h:
   #include "CircularMatrix.h"
 
-  - For **map-based** implementation, include in Grid.h:
+- For **map-based** implementation, include in Grid.h:
   #include "CircularMatrix_map.h"
