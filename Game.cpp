@@ -9,12 +9,6 @@ Game::Game(const int width, const int height): aliveValue('*'), deadValue('-'), 
 }
 
 int Game::countAliveNeighbors(const int x, const int y) const {
-    /*int aliveNeighbours = 0;
-    aliveNeighbours += (tempGrid.getCell(x-1,y-1) == '*') + (tempGrid.getCell(x-1,y) == '*') + (tempGrid.getCell(x-1,y+1) == '*');
-    aliveNeighbours += (tempGrid.getCell(x,y-1) == '*') + (tempGrid.getCell(x,y+1) == '*');
-    aliveNeighbours += (tempGrid.getCell(x+1,y-1) == '*') + (tempGrid.getCell(x+1,y) == '*') + (tempGrid.getCell(x+1,y+1) == '*');
-    return aliveNeighbours;*/
-
     int aliveNeighbours = 0;
     for (int i = -1; i <= 1; ++i) {
         for (int j = -1; j <= 1; ++j) {
@@ -33,23 +27,17 @@ void Game::updateActiveCells() {
     for (const auto& [x, y] : grid.getActiveCells()) {
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
-                newActiveCells.insert({x + i, y + j});
+                if (grid.getCell(x + i, y + j) != deadValue) {  // Only add if cell is alive or might affect neighbors
+                    newActiveCells.insert({x + i, y + j});
+                }
             }
         }
     }
     grid.setActiveCells(newActiveCells);  // Update with new set of active cells
 }
 
-void Game::updateState() {
-    /*const Grid<char> tempGrid(grid);
-    for (int i = 0; i < grid.getWidth(); i++) {
-        for (int j = 0; j < grid.getHeight(); j++) {
-            int aliveNeighbours = countAliveNeighbors(i, j, tempGrid);
-            if (aliveNeighbours < 2 || aliveNeighbours > 3) grid.setCell(i,j,'-');
-            else if (aliveNeighbours == 3) grid.setCell(i,j,'*');
-        }
-    }*/
 
+void Game::updateState() {
     std::vector<std::pair<int, int>> toLive;
     std::vector<std::pair<int, int>> toDie;
 
@@ -107,6 +95,10 @@ bool Game::allCellsAreDead() const {
 }
 
 void Game::start() {
+    static bool isFirstRender = true;
+
+    Renderer::setupSignalHandler(grid.getHeight());
+
     randomlyAssignAliveCells();
 
     int seconds;
@@ -118,15 +110,22 @@ void Game::start() {
         while (difftime(time(nullptr), before) < seconds) {}
 
         if (allCellsAreDead()) {
+            Renderer::moveCursorBelowGrid(grid.getHeight());  // Move cursor two lines below the grid
             std::cout << "All cells are dead. =( \n";
             break;
         }
 
         Grid<char> oldGrid(grid);
-        Renderer::printGrid(grid);
-        updateState();
+        if(isFirstRender) {
+            Renderer::printGrid(grid, oldGrid, isFirstRender);
+            isFirstRender = false;
+        } else {
+            updateState();
+            Renderer::printGrid(grid, oldGrid, isFirstRender);
+        }
 
         if (isStuck(oldGrid)) {
+            Renderer::moveCursorBelowGrid(grid.getHeight());  // Move cursor two lines below the grid
             std::cout << "The civilization is stuck in a stable state. Boring... =( \n";
             break;
         }
